@@ -1,0 +1,8 @@
+node_modules/
+.env
+*.log
+.DS_Store
+# Supabase
+.supabase/
+# Don't commit config with real keys
+# public/config.js

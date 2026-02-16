@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Place an Order - OnlyFoods</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="config.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <img src="logo.png" alt="OnlyFoods Logo" class="logo-img">
+            </div>
+            <ul class="nav-links">
+                <li><a href="/">Home</a></li>
+                <li><a href="/join">Join Us</a></li>
+                <li><a href="/order">Order</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="page-content">
+        <section class="page-header">
+            <div class="container">
+                <h1>Place Your Order</h1>
+                <p class="page-subtitle">Fresh meals, made to order</p>
+            </div>
+        </section>
+
+        <section class="form-section">
+            <div class="container">
+                <div class="form-container">
+                    <div class="form-placeholder-note">
+                        <p><em>Note: Embedded form will be added here</em></p>
+                    </div>
+                    <form id="orderForm" class="form">
+                        <div class="form-group">
+                            <label for="orderName">Full Name *</label>
+                            <input type="text" id="orderName" name="name" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="orderEmail">Email Address *</label>
+                            <input type="email" id="orderEmail" name="email" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="orderPhone">Phone Number *</label>
+                            <input type="tel" id="orderPhone" name="phone" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="items">Order Items *</label>
+                            <textarea id="items" name="items" rows="6" required placeholder="Please list the items you'd like to order. Be as specific as possible with quantities and any preferences."></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="specialInstructions">Special Instructions</label>
+                            <textarea id="specialInstructions" name="specialInstructions" rows="4" placeholder="Any dietary restrictions, allergies, or special requests?"></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-large">Submit Order</button>
+                    </form>
+                    <div id="orderMessage" class="message"></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="payment-section">
+            <div class="container">
+                <div class="info-card">
+                    <h2>💳 Payment</h2>
+                    <p>After submitting your order, please complete payment via Venmo:</p>
+                    <a href="https://venmo.com" target="_blank" class="btn btn-venmo">
+                        Pay with Venmo
+                    </a>
+                    <p class="note">Please include your order number (you'll receive this via email) in the Venmo payment note.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="pickup-section">
+            <div class="container">
+                <div class="info-card">
+                    <h2>📍 Pickup Information</h2>
+                    <div class="pickup-details">
+                        <div class="detail-item">
+                            <strong>Location:</strong>
+                            <p>123 Main Street, Your City, ST 12345</p>
+                            <p class="note">(Enter through the side door)</p>
+                        </div>
+                        <div class="detail-item">
+                            <strong>Pickup Times:</strong>
+                            <p>Monday - Friday: 4:00 PM - 7:00 PM</p>
+                            <p>Saturday: 12:00 PM - 5:00 PM</p>
+                            <p>Sunday: Closed</p>
+                        </div>
+                        <div class="detail-item">
+                            <strong>Instructions:</strong>
+                            <p>Please arrive during the pickup window. Your order will be ready 30 minutes after submission. We'll send you a confirmation email with your order number.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="gallery-section">
+            <div class="container">
+                <h2>Our Meals</h2>
+                <div class="gallery-grid">
+                    <div class="gallery-item placeholder">
+                        <div class="placeholder-content">
+                            <span class="placeholder-icon">🍽️</span>
+                            <p>Meal Photo Placeholder</p>
+                        </div>
+                    </div>
+                    <div class="gallery-item placeholder">
+                        <div class="placeholder-content">
+                            <span class="placeholder-icon">🍽️</span>
+                            <p>Meal Photo Placeholder</p>
+                        </div>
+                    </div>
+                    <div class="gallery-item placeholder">
+                        <div class="placeholder-content">
+                            <span class="placeholder-icon">🍽️</span>
+                            <p>Meal Photo Placeholder</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 OnlyFoods. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('orderForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const formData = {
+                name: document.getElementById('orderName').value,
+                email: document.getElementById('orderEmail').value,
+                phone: document.getElementById('orderPhone').value,
+                items: document.getElementById('items').value,
+                specialInstructions: document.getElementById('specialInstructions').value
+            };
+
+            const messageDiv = document.getElementById('orderMessage');
+            messageDiv.textContent = 'Submitting order...';
+            messageDiv.className = 'message message-info';
+
+            try {
+                const response = await fetch(`${SUPABASE_FUNCTIONS_URL}/order`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${SUPABASE_CONFIG.anonKey}`
+                    },
+                    body: JSON.stringify(formData)
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    messageDiv.textContent = data.message;
+                    messageDiv.className = 'message message-success';
+                    document.getElementById('orderForm').reset();
+                } else {
+                    messageDiv.textContent = data.message;
+                    messageDiv.className = 'message message-error';
+                }
+            } catch (error) {
+                messageDiv.textContent = 'An error occurred. Please try again.';
+                messageDiv.className = 'message message-error';
+            }
+        });
+    </script>
+</body>
+</html>

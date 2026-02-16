@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OnlyFoods - Fresh, Local, Delicious</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <img src="logo.png" alt="OnlyFoods Logo" class="logo-img">
+            </div>
+            <ul class="nav-links">
+                <li><a href="/">Home</a></li>
+                <li><a href="/join">Join Us</a></li>
+                <li><a href="/order">Order</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="homepage">
+        <section class="hero">
+            <div class="hero-content">
+                <img src="logo.png" alt="OnlyFoods Logo" class="hero-logo">
+                <h1 class="hero-title">Welcome to OnlyFoods</h1>
+                <p class="hero-subtitle">A student run food cooperative here at Ohio State providing healthy and fresh meals weekly</p>
+                <div class="hero-buttons">
+                    <a href="/order" class="btn btn-primary" id="orderBtn">Place an Order</a>
+                    <a href="/join" class="btn btn-secondary" id="joinBtn">Join Our Community</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="mission">
+            <div class="container">
+                <h2>Our Mission</h2>
+                <p class="mission-text">
+                    At OnlyFoods, we're passionate about bringing you the freshest, 
+                    most delicious food from local sources. We believe in quality, 
+                    community, and creating memorable culinary experiences.
+                </p>
+            </div>
+        </section>
+
+        <section class="gallery-section">
+            <div class="container">
+                <h2>In Action</h2>
+                <div class="gallery-grid">
+                    <div class="gallery-item placeholder">
+                        <div class="placeholder-content">
+                            <span class="placeholder-icon">📸</span>
+                            <p>Event Photo Placeholder</p>
+                        </div>
+                    </div>
+                    <div class="gallery-item placeholder">
+                        <div class="placeholder-content">
+                            <span class="placeholder-icon">📸</span>
+                            <p>Event Photo Placeholder</p>
+                        </div>
+                    </div>
+                    <div class="gallery-item placeholder">
+                        <div class="placeholder-content">
+                            <span class="placeholder-icon">📸</span>
+                            <p>Event Photo Placeholder</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="features">
+            <div class="container">
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">🍽️</div>
+                        <h3>Fresh Ingredients</h3>
+                        <p>Sourced locally from trusted farmers and producers</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">👥</div>
+                        <h3>Community Driven</h3>
+                        <p>Built by food lovers, for food lovers</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">✨</div>
+                        <h3>Quality First</h3>
+                        <p>Every dish crafted with care and attention to detail</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 OnlyFoods. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Add click handlers and smooth transitions for buttons
+        document.addEventListener('DOMContentLoaded', function() {
+            const orderBtn = document.getElementById('orderBtn');
+            const joinBtn = document.getElementById('joinBtn');
+
+            // Order button functionality
+            if (orderBtn) {
+                orderBtn.addEventListener('click', function(e) {
+                    // Add click animation
+                    this.style.transform = 'scale(0.95)';
+                    setTimeout(() => {
+                        this.style.transform = '';
+                    }, 150);
+                    
+                    // Navigate to order page
+                    window.location.href = '/order';
+                });
+            }
+
+            // Join button functionality
+            if (joinBtn) {
+                joinBtn.addEventListener('click', function(e) {
+                    // Add click animation
+                    this.style.transform = 'scale(0.95)';
+                    setTimeout(() => {
+                        this.style.transform = '';
+                    }, 150);
+                    
+                    // Navigate to join page
+                    window.location.href = '/join';
+                });
+            }
+
+            // Add hover effects
+            const buttons = document.querySelectorAll('.hero-buttons .btn');
+            buttons.forEach(btn => {
+                btn.addEventListener('mouseenter', function() {
+                    this.style.transition = 'all 0.3s ease';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
