@@ -4,5 +4,5 @@ node_modules/
 .DS_Store
 # Supabase
 .supabase/
-# Don't commit config with real keys
-# public/config.js
+# Don't commit config with real keys - use config.example.js instead
+config.js
